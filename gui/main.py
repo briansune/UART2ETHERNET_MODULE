@@ -3,6 +3,7 @@ import serial
 import serial.tools.list_ports
 import threading
 import sys
+from time import sleep
 
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QMessageBox
@@ -18,7 +19,7 @@ class Window(QMainWindow, Ui_MainWindow):
         self.ui.setupUi(self)
         self.connectSignalsSlots()
         self.bStartStopFlag = False
-        self.oSocketHolder = socket
+        self.oSocketHolder = None
         self.oSerialHolder = None
         self.oConnectHolder = None
         self.oThreadHolderRx = None
@@ -76,10 +77,11 @@ class Window(QMainWindow, Ui_MainWindow):
             self.startTcpIpCom()
 
     def startTcpIpCom(self):
-        self.oSocketHolder = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.oSocketHolder.connect(("8.8.8.8", 80))
-        s_my_ip = self.oSocketHolder.getsockname()[0]
-        self.oSocketHolder.close()
+        o_soc_holder = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        o_soc_holder.connect(("8.8.8.8", 80))
+        s_my_ip = o_soc_holder.getsockname()[0]
+        o_soc_holder.shutdown(socket.SHUT_RDWR)
+        o_soc_holder.close()
 
         self.oSocketHolder = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -117,10 +119,11 @@ class Window(QMainWindow, Ui_MainWindow):
             self.oConnectHolder.send(send_msg)
 
     def closeAll(self):
+        self.oConnectHolder.shutdown(socket.SHUT_RDWR)
+        sleep(0.5)
         print self.oThreadHolderRx.isAlive()
         print self.oThreadHolderTx.isAlive()
         self.oSerialHolder.close()
-        self.oConnectHolder.close()
 
     def updateComList(self):
         self.ui.oListBoxCom.clear()
