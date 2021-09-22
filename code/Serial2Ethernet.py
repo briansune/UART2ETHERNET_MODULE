@@ -9,18 +9,30 @@ def recv_msg():
         recv_msg = conn.recv(1024)
         if not recv_msg:
             sys.exit(0)
+<<<<<<< HEAD
         # recv_msg = recv_msg.decode()
         # print(recv_msg)
         s.write(recv_msg)
+=======
+        recv_msg = recv_msg.decode()
+        print(recv_msg)
+>>>>>>> origin/main
 
 
 def send_msg():
     while True:
+<<<<<<< HEAD
         send_msg = s.read_all()
         # send_msg = raw_input()
         send_msg = send_msg.encode()
         conn.send(send_msg)
         # print("message sent")
+=======
+        send_msg = raw_input()
+        send_msg = send_msg.encode()
+        conn.send(send_msg)
+        print("message sent")
+>>>>>>> origin/main
 
 
 # get my PC IP
@@ -40,9 +52,12 @@ sock.bind(server_address)
 sock.listen(1)
 
 print('Start')
+<<<<<<< HEAD
 s = serial.Serial('COM25', 57600, timeout=5)
 s.close()
 s.open()
+=======
+>>>>>>> origin/main
 conn, addr = sock.accept()
 
 # thread has to start before other loop
