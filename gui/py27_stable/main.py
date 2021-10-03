@@ -5,7 +5,10 @@ import threading
 import sys
 import os
 from time import sleep
+<<<<<<< HEAD
 from requests import Session, exceptions
+=======
+>>>>>>> origin/main
 
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QMessageBox
@@ -38,9 +41,20 @@ class Window(QMainWindow, Ui_oMainWind):
         self.ui.oActExit.triggered.connect(self.close)
         self.ui.oEntryIp0.setText('192')
         self.ui.oEntryIp1.setText('168')
+<<<<<<< HEAD
         self.ui.oEntryIp2.setText('16')
         self.ui.oEntryIp3.setText('123')
         self.ui.oEntryPort.setText('5000')
+=======
+        self.ui.oEntryIp2.setText('xx')
+        self.ui.oEntryIp3.setText('xx')
+        self.ui.oEntryPort.setText('5000')
+        self.ui.oEntryIp0.setDisabled(True)
+        self.ui.oEntryIp1.setDisabled(True)
+        self.ui.oEntryIp2.setDisabled(True)
+        self.ui.oEntryIp3.setDisabled(True)
+        self.ui.oEntryPort.setDisabled(True)
+>>>>>>> origin/main
         # self.ui.oLbStatus.setPixmap(QtGui.QPixmap(resource_path("red.png")))
         # self.ui.oLbLargeIcon.setPixmap(QtGui.QPixmap(resource_path("Qorvo_Logo.png")))
         # icon = QtGui.QIcon()
@@ -60,11 +74,19 @@ class Window(QMainWindow, Ui_oMainWind):
         self.bStartStopFlag = False
         self.ui.oButStartStop.setText(l_label[int(not self.bStartStopFlag)])
         self.ui.oListBoxCom.setDisabled(False)
+<<<<<<< HEAD
         self.ui.oEntryIp0.setDisabled(False)
         self.ui.oEntryIp1.setDisabled(False)
         self.ui.oEntryIp2.setDisabled(False)
         self.ui.oEntryIp3.setDisabled(False)
         self.ui.oEntryPort.setDisabled(False)
+=======
+        self.ui.oEntryIp0.setDisabled(True)
+        self.ui.oEntryIp1.setDisabled(True)
+        self.ui.oEntryIp2.setDisabled(True)
+        self.ui.oEntryIp3.setDisabled(True)
+        self.ui.oEntryPort.setDisabled(True)
+>>>>>>> origin/main
         self.ui.oEntryBaud.setDisabled(False)
         self.ui.oEntryDataBits.setDisabled(False)
         self.ui.oEntryParityBits.setDisabled(False)
@@ -78,11 +100,19 @@ class Window(QMainWindow, Ui_oMainWind):
         self.ui.oButStartStop.setText(l_label[int(not self.bStartStopFlag)])
         if not self.bStartStopFlag:
             self.ui.oListBoxCom.setDisabled(False)
+<<<<<<< HEAD
             self.ui.oEntryIp0.setDisabled(False)
             self.ui.oEntryIp1.setDisabled(False)
             self.ui.oEntryIp2.setDisabled(False)
             self.ui.oEntryIp3.setDisabled(False)
             self.ui.oEntryPort.setDisabled(False)
+=======
+            self.ui.oEntryIp0.setDisabled(True)
+            self.ui.oEntryIp1.setDisabled(True)
+            self.ui.oEntryIp2.setDisabled(True)
+            self.ui.oEntryIp3.setDisabled(True)
+            self.ui.oEntryPort.setDisabled(True)
+>>>>>>> origin/main
             self.ui.oEntryBaud.setDisabled(False)
             self.ui.oEntryDataBits.setDisabled(False)
             self.ui.oEntryParityBits.setDisabled(False)
@@ -106,6 +136,7 @@ class Window(QMainWindow, Ui_oMainWind):
             self.startTcpIpCom()
 
     def startTcpIpCom(self):
+<<<<<<< HEAD
 
         s_website = r"http://{}.{}.{}.{}".format(
             self.ui.oEntryIp0.text(),
@@ -128,6 +159,8 @@ class Window(QMainWindow, Ui_oMainWind):
                 self.startStopBind()
                 return
 
+=======
+>>>>>>> origin/main
         o_soc_holder = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         o_soc_holder.connect(("8.8.8.8", 80))
         s_my_ip = o_soc_holder.getsockname()[0]

@@ -4,7 +4,11 @@ from requests import Session, exceptions
 from bs4 import BeautifulSoup as bs
 
 with Session() as s:
+<<<<<<< HEAD
     site = s.get(r"http://192.168.1.78/login", timeout=2)
+=======
+    site = s.get(r"http://192.168.1.78/login")
+>>>>>>> origin/main
 
     bs_content = bs(site.content, "html.parser")
     token = bs_content.find("input", {"name": "__PPAS"})
