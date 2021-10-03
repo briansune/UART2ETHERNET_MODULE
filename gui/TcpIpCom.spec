@@ -1,33 +1,33 @@
-# -*- mode: python ; coding: utf-8 -*-
+# -*- mode: python -*-
 
 block_cipher = None
 
 
 a = Analysis(['main.py'],
-             pathex=['D:\\python_test\\tcp2serial\\UART2ETHERNET_MODULE\\gui'],
-             binaries=[],
+             pathex=['C:\\Users\\briansuneZ\\Downloads\\gui'],
+             binaries=[(r'C:\Anaconda\envs\py27_32\Library\plugins\platforms', r'./platforms')],
              datas=[],
-             hiddenimports=['sip'],
+             hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
              excludes=[],
              win_no_prefer_redirects=False,
              win_private_assemblies=False,
-             cipher=block_cipher,
-             noarchive=False)
+             cipher=block_cipher)
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,
           a.scripts,
-          a.binaries,
-          a.zipfiles,
-          a.datas,
-          [],
+          exclude_binaries=True,
           name='TcpIpCom',
           debug=False,
-          bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          upx_exclude=['qwindows.dll'],
-          runtime_tmpdir=None,
-          console=False )
+          console=True , icon='qorvo_ico.ico')
+coll = COLLECT(exe,
+               a.binaries,
+               a.zipfiles,
+               a.datas,
+               strip=False,
+               upx=True,
+               name='TcpIpCom')

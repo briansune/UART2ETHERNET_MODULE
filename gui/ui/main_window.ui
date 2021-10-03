@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>oMainWind</class>
+ <widget class="QMainWindow" name="oMainWind">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>548</width>
-    <height>199</height>
+    <width>598</width>
+    <height>285</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -20,9 +20,19 @@
    <cursorShape>PointingHandCursor</cursorShape>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Ethernet to UART Tools</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="images.qrc">
+    <normaloff>:/qorvo_ico.png</normaloff>:/qorvo_ico.png</iconset>
+  </property>
+  <property name="toolButtonStyle">
+   <enum>Qt::ToolButtonIconOnly</enum>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="autoFillBackground">
+    <bool>true</bool>
+   </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="2" column="1">
      <widget class="QFrame" name="oFrameMain">
@@ -34,13 +44,13 @@
       </property>
       <property name="minimumSize">
        <size>
-        <width>530</width>
+        <width>580</width>
         <height>160</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>530</width>
+        <width>580</width>
         <height>160</height>
        </size>
       </property>
@@ -749,6 +759,77 @@
         <string/>
        </property>
       </widget>
+      <widget class="QLabel" name="oLbStatus">
+       <property name="geometry">
+        <rect>
+         <x>530</x>
+         <y>60</y>
+         <width>45</width>
+         <height>45</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>45</width>
+         <height>45</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>45</width>
+         <height>45</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="images.qrc">:/red.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </widget>
+    </item>
+    <item row="3" column="1" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+     <widget class="QLabel" name="oLbLargeIcon">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>80</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>80</height>
+       </size>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="midLineWidth">
+       <number>6</number>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="images.qrc">:/Qorvo_Logo.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
      </widget>
     </item>
    </layout>
@@ -758,7 +839,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>548</width>
+     <width>598</width>
      <height>21</height>
     </rect>
    </property>
@@ -788,6 +869,8 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
  <connections/>
 </ui>

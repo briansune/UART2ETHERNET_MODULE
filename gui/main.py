@@ -3,19 +3,26 @@ import serial
 import serial.tools.list_ports
 import threading
 import sys
+import os
 from time import sleep
 
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QMessageBox
 )
-from main_window_ui import Ui_MainWindow
+from PyQt5 import QtGui
+from main_window_ui import Ui_oMainWind
 
 
-class Window(QMainWindow, Ui_MainWindow):
+# def resource_path(relative_path):
+#     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+#     return os.path.join(base_path, relative_path)
+
+
+class Window(QMainWindow, Ui_oMainWind):
     def __init__(self, parent=None):
         super(Window, self).__init__(parent)
         self.sys_ports = []
-        self.ui = Ui_MainWindow()
+        self.ui = Ui_oMainWind()
         self.ui.setupUi(self)
         self.connectSignalsSlots()
         self.bStartStopFlag = False
@@ -38,6 +45,12 @@ class Window(QMainWindow, Ui_MainWindow):
         self.ui.oEntryIp2.setDisabled(True)
         self.ui.oEntryIp3.setDisabled(True)
         self.ui.oEntryPort.setDisabled(True)
+        # self.ui.oLbStatus.setPixmap(QtGui.QPixmap(resource_path("red.png")))
+        # self.ui.oLbLargeIcon.setPixmap(QtGui.QPixmap(resource_path("Qorvo_Logo.png")))
+        # icon = QtGui.QIcon()
+        # icon.addPixmap(QtGui.QPixmap(resource_path("qorvo_ico.ico")), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        # icon.addPixmap(QtGui.QPixmap(":/qorvo_ico.ico"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        # self.setWindowIcon(icon)
 
         self.ui.oEntryBaud.setText('57600')
         self.ui.oEntryDataBits.setText('8')
@@ -45,6 +58,22 @@ class Window(QMainWindow, Ui_MainWindow):
         self.ui.oEntryStopBits.setText('1')
         self.updateComList()
         self.ui.oButStartStop.clicked.connect(self.startStopBind)
+
+    def forceStop(self):
+        l_label = ['Stop', 'Start']
+        self.bStartStopFlag = False
+        self.ui.oButStartStop.setText(l_label[int(not self.bStartStopFlag)])
+        self.ui.oListBoxCom.setDisabled(False)
+        self.ui.oEntryIp0.setDisabled(True)
+        self.ui.oEntryIp1.setDisabled(True)
+        self.ui.oEntryIp2.setDisabled(True)
+        self.ui.oEntryIp3.setDisabled(True)
+        self.ui.oEntryPort.setDisabled(True)
+        self.ui.oEntryBaud.setDisabled(False)
+        self.ui.oEntryDataBits.setDisabled(False)
+        self.ui.oEntryParityBits.setDisabled(False)
+        self.ui.oEntryStopBits.setDisabled(False)
+        self.closeAll()
 
     def startStopBind(self):
         l_label = ['Stop', 'Start']
@@ -62,6 +91,8 @@ class Window(QMainWindow, Ui_MainWindow):
             self.ui.oEntryDataBits.setDisabled(False)
             self.ui.oEntryParityBits.setDisabled(False)
             self.ui.oEntryStopBits.setDisabled(False)
+            # self.ui.oLbStatus.setPixmap(QtGui.QPixmap(resource_path("red.png")))
+            self.ui.oLbStatus.setPixmap(QtGui.QPixmap(":/red.png"))
             self.closeAll()
         else:
             self.ui.oListBoxCom.setDisabled(True)
@@ -74,6 +105,8 @@ class Window(QMainWindow, Ui_MainWindow):
             self.ui.oEntryDataBits.setDisabled(True)
             self.ui.oEntryParityBits.setDisabled(True)
             self.ui.oEntryStopBits.setDisabled(True)
+            # self.ui.oLbStatus.setPixmap(QtGui.QPixmap(resource_path("green.png")))
+            self.ui.oLbStatus.setPixmap(QtGui.QPixmap(":/green.png"))
             self.startTcpIpCom()
 
     def startTcpIpCom(self):
@@ -106,17 +139,27 @@ class Window(QMainWindow, Ui_MainWindow):
 
     def recv_msg(self):
         while self.bStartStopFlag:
-            recv_msg = self.oConnectHolder.recv(1024)
-            if not recv_msg:
-                print('Error occur!')
+            try:
+                recv_msg = self.oConnectHolder.recv(1024)
+                if not recv_msg:
+                    print('Error occur!')
+                    return
+                self.oSerialHolder.write(recv_msg)
+            except socket.error, exc:
+                print('Socket Error {}'.format(exc))
+                self.forceStop()
                 return
-            self.oSerialHolder.write(recv_msg)
 
     def send_msg(self):
         while self.bStartStopFlag:
-            send_msg = self.oSerialHolder.read_all()
-            send_msg = send_msg.encode()
-            self.oConnectHolder.send(send_msg)
+            try:
+                send_msg = self.oSerialHolder.read_all()
+                send_msg = send_msg.encode()
+                self.oConnectHolder.send(send_msg)
+            except socket.error, exc:
+                print('Socket Error {}'.format(exc))
+                self.forceStop()
+                return
 
     def closeAll(self):
         self.oConnectHolder.shutdown(socket.SHUT_RDWR)
