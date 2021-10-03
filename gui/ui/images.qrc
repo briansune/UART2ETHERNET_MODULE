@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>green.png</file>
-        <file>red.png</file>
-        <file>Qorvo_Logo.png</file>
-        <file>qorvo_ico.png</file>
-    </qresource>
-</RCC>
