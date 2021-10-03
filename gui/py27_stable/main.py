@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import socket
 import serial
 import serial.tools.list_ports
@@ -121,7 +123,7 @@ class Window(QMainWindow, Ui_oMainWind):
 
                 # login
                 o_state = o_session.post(r"{}/state".format(s_website), data={'__PPAS': 'admin'})
-                print(o_state.content.decode('gb2312'))
+                # print(o_state.content.decode('gb2312'))
 
             except exceptions.Timeout:
                 # cannot reach
