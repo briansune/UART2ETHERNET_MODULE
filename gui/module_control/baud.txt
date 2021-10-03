@@ -1,0 +1,25 @@
+600 1200 2400 4800 9600 14400 19200 38400 56000 57600 115200 128000 153600 230400
+5,6,7,8
+None odd even mask space
+1 2
+NFC FC
+
+
+http://192.168.1.78/uartconf.cgi?
+baudrate=10&
+data_bits=3&
+parity=0&
+stop_bits=0&
+flow_ctrl=0
+
+
+http://192.168.1.78/ethconf.cgi?
+workmode=1&
+ipmode=0&ip1=192&ip2=168&ip3=1&ip4=78&
+sub1=255&sub2=255&sub3=255&sub4=0&
+gw1=192&gw2=168&gw3=1&gw4=1
+&mac1=84&mac2=C2&mac3=E4&mac4=38&mac5=0A&mac6=C1&
+port=5000&
+pc_ip1=192&pc_ip2=168&pc_ip3=1&pc_ip4=37&
+pc_port=60000&
+reconnect_time=3
